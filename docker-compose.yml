@@ -1,0 +1,12 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/local/php/Dockerfile
+    container_name: backend
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/src
+      # https://www.php.net/downloads.php?os=windows
+      - ./docker/local/php/php.ini:/usr/local/etc/php/php.ini
