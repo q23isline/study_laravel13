@@ -1,3 +1,6 @@
+volumes:
+  db-data:
+
 services:
   backend:
     build:
@@ -10,3 +13,17 @@ services:
       - ./backend:/src
       # https://www.php.net/downloads.php?os=windows
       - ./docker/local/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: docker/local/postgres/Dockerfile
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: study_laravel
+      POSTGRES_PASSWORD: Passw0rd
+    volumes:
+      - db-data:/var/lib/postgresql
